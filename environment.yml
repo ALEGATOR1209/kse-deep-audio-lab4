@@ -1,0 +1,23 @@
+name: deep-audio
+channels:
+  - conda-forge
+dependencies:
+  - seaborn
+  - python=3.11
+  - torchvision
+  - ipykernel
+  - pytorch[version='>=2.4']
+  - pyarrow
+  - torchaudio
+  - scikit-learn
+  - pip
+  - python-dotenv
+  - librosa
+  - jupyter
+  - ffmpeg
+  - pandas
+  - scipy
+  - matplotlib
+  - libsndfile
+  - lightning
+  - evaluate
