@@ -48,6 +48,18 @@ Dataset's sample rate is 22050. Clip duration distribution:
 
 ![](img/clip_duration.png)
 
+### Metrics
+
+The proposed metrics are CER, UTMOS and SECS. All of them rely on another model that evaluates the output.
+
+* **UTMOS** reflects speech naturalness and perception quality.
+* **SECS** (Speaker Encoder Cosine Similarity) shows how much the original and generated voices are similar
+* **CER** measures the difference between the original text and transcribed from the output.
+
+A thing to note is that all these metrics rely on a good quality of the evaluating models. If Whisper makes an error during transcription, that could unfairly lower our model's score. At the same time, if the models recover the correct text even from low-quality outputs, it show model for better than it's actually worth.
+
+An alternative metric to somewhat mitigate these limitations could be CER, but calculated not against the original, labeled text, but against the transcript of the input sample. The label-transcript CER then could also be used to detect potential problems with the data or Whisper.
+
 ## Validation
 
 ### Test/Train/Val Splits
