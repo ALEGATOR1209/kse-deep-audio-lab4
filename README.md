@@ -97,6 +97,29 @@ For additional edge cases, we asked Claude to generate input texts and selected 
 
 ## GPT TTS
 
+### Attempt to solve overfitting issue
+
+To fight the overfitting several approaches were used
+
+
+Dataset increased by addition of my little pony and vctk dataasets 
+| Dataset | train | val | test | total |
+|---------|------:|----:|-----:|------:|
+| lj      | 10,611 | 1,179 | 1,310 | 13,100 |
+| vctk    | 35,209 | 4,397 | 4,464 | 44,070 |
+| pony    | 16,214 | 2,026 | 2,032 | 20,272 |
+| **All** | **62,034** | **7,602** | **7,806** | **77,442** |
+
+This dataset was used against the original gpt2tts and reduced gpt model with ~10M params
+
+The original showed signes of overfitting aroung 4th epoch with val loss platoed
+![alt text](img/gpt_default_10ep_large_ds.png)
+
+The reduced version showed relativelly good performance, still platoed around 40-50 epoch with ~6.5 val loss. This model was without pretrained weights, showed better results in both text_reliance and spk_reliance then the original one.
+![alt text](img/gpt_smaller_50ep_large_ds.png)
+> the potential approach would be to reduce it even further, but even with 10m params ~65% is the gpt's wte(text token embeddings). 
+
+
 ## RLHF approach
 
 ## AI Use Disclosure

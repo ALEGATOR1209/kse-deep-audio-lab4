@@ -7,7 +7,7 @@ dependencies:
   - torchvision
   - ipykernel
   - pytorch[version='>=2.4']
-  - pyarrow
+  - pyarrow>=14
   - torchaudio
   - scikit-learn
   - pip
@@ -21,3 +21,9 @@ dependencies:
   - libsndfile
   - lightning
   - evaluate
+  - transformers
+  - datasets>=2.16
+  - kagglehub
+  - pip:
+      - phonemizer
+      - focalcodec@git+https://github.com/lucadellalib/focalcodec.git@main
