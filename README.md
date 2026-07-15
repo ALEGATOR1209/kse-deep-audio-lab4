@@ -2,6 +2,8 @@
 
 Yevhenii Zasko & Oleh Kovalyshyn
 
+![](img/image.png)
+
 ## EDA and Metric Analysis
 
 LJSpeech is a one-speaker dataset of 13,100 samples read from non-fiction books. Dataset's README contains basic statistics:
@@ -97,12 +99,16 @@ For additional edge cases, we asked Claude to generate input texts and selected 
 
 ## GPT TTS
 
+We implemented GPT TTS system based on focalcodec and pre-trained GPT2 model and trained it on LJSpeech data. The resutls were unsatisfactory, with clear overfitting patter showing for train dataset.
+
+To diagnose the issue we tried to measure "speaker reliance" (for multispeaker runs) and "text reliance" - the measure of how much does the loss change when we randomly permute either text tokens or randomly replace the speaker token.
+
 ### Attempt to solve overfitting issue
 
 To fight the overfitting several approaches were used
 
 
-Dataset increased by addition of my little pony and vctk dataasets 
+Dataset increased by addition of my little pony and vctk dataasets
 | Dataset | train | val | test | total |
 |---------|------:|----:|-----:|------:|
 | lj      | 10,611 | 1,179 | 1,310 | 13,100 |
@@ -117,10 +123,13 @@ The original showed signes of overfitting aroung 4th epoch with val loss platoed
 
 The reduced version showed relativelly good performance, still platoed around 40-50 epoch with ~6.5 val loss. This model was without pretrained weights, showed better results in both text_reliance and spk_reliance then the original one.
 ![alt text](img/gpt_smaller_50ep_large_ds.png)
-> the potential approach would be to reduce it even further, but even with 10m params ~65% is the gpt's wte(text token embeddings). 
+> the potential approach would be to reduce it even further, but even with 10m params ~65% is the gpt's wte(text token embeddings).
 
+We also tried to do tokenizing by phonemes, the results below:
 
-## RLHF approach
+![](img/loss.png)
+
+Given the big loss and poor quality of generated samples, we did not calculate the subsequent metrics like WER, SECS and so on. Empirically, the model learned to distinguish speaker voices on multi-speaker runs and generate sound that sounds like their voice. Still we couldn't get it to generate the actual audiable words.
 
 ## AI Use Disclosure
 Claude Code was used to brainstorm ideas, generate plots and some scripts, validate approaches and debug code.
